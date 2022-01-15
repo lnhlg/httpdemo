@@ -1,0 +1,35 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: httpdemo-svc
+spec:
+  gateways:
+    - httpdemo-gw
+  hosts:
+    - httpdemo.lnhlg.io
+  http:
+    - match:
+        - port: 443
+      route:
+        - destination:
+            host: httpdemo-service.simple.svc.cluster.local
+            port:
+              number: 8080
+---
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: httpdemo-gw
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - hosts:
+        - httpdemo.lnhlg.io
+      port:
+        name: httpdemo-port
+        number: 443
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: lnhlg-credential

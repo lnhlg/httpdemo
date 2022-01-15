@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpdemo
+  labels: 
+    app: httpdemo
+spec: 
+  replicas: 1
+  selector:
+    matchLabels: 
+      app: httpdemo
+  template:
+    metadata:
+      labels:
+        app: httpdemo
+      annotations:
+        prometheus.io/port: "9090"
+        prometheus.io/scrape: "true"
+    spec:
+      containers: 
+      - name: httpdemo-container
+        image: lnhlg5/httpdemo:v1
+        ports:
+        - name: liveness-port
+          containerPort: 8888
+          hostPort: 8080
+        resources:
+          limits: 
+            cpu: "100m"
+            memory: "10Mi"
+          requests:
+            cpu: "50m"
+            memory: "1Mi"
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: liveness-port
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 10        
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: liveness-port
+            scheme: HTTP
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        envFrom: 
+          - configMapRef:
+              name: httpdemo-config                       
