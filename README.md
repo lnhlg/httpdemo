@@ -1,16 +1,8 @@
-1. 创建镜像  
-docker build -t httpdemo -f .\Dockerfile .  
-
-2. 运行容器  
-docker run -d -p 8888:8888 --name httpdemo httpdemo  
-
-3. 获取容器PID  
-docker insepct -f {{ State.Pid }} $ContainerId  
-
-4. 进入容器  
-nsenter --target $PID --mount --uts --ipc --net --pid  
-
-5. 推送至官方镜像库  
-docker login  
-docker tag httpdemo $user/httpdemo:v1  
-docker push $user/httpdemo  
+## 毕业总结  
+&ensp;&ensp;&ensp;&ensp;最近公司准备上云，知识储备有些不够，于是报了这期训练营，经过十余周的学习，所获颇丰，非常感谢孟老师的细心讲解。
+  
+&ensp;&ensp;&ensp;&ensp;本期课程非常详尽地讲解了go语言、Docker容器、Kubernetes等的工作原理，并结合实战代码让学员直观地理解原理，是一门非常有价值的课程，唯一不足的就是课时安排得有些紧，每一课视频基本都在3个小时以上，对上班族的时间管理予极大压力，特别是当初本人不知死活，一下子报了三门课，导致学习进度有些跟不上。  
+  
+&ensp;&ensp;&ensp;&ensp;因为视频时长有些长，对于上班族来说在课程期间完整回看每一期视频有些不现实，所以我通常会记下每一个关键知识点、困难点的视频时刻，在课后练习或做测试项目遇到不理解的地方就定位到这些时刻反复观看学习，这是我不得已的一种学习方法。  
+  
+&ensp;&ensp;&ensp;&ensp;最后再次感谢孟老师、助教、班班在课程期间的辛苦教导并祝愿云原生训练营这门课程越办越好，也期待孟老师推出更多的新课程。
